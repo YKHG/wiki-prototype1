@@ -16,7 +16,7 @@ namespace DataTable
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormDataTable());
+            Application.Run(new TheDataTable());
         }
     }
 }
