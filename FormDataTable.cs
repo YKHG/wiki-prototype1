@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using System.IO;
 // chenming xu Date 03/02/2023
 // id30063012 wiki prototype project
 namespace DataTable
@@ -22,6 +24,13 @@ namespace DataTable
         static int col = 5;
         string[,] DataTable = new string[row, col];
 
+        private void ClearTextBoxes()
+        {
+            
+        }
+
+
+
         private void FillArray()
         {
             Random random = new Random();
@@ -35,16 +44,7 @@ namespace DataTable
         }
         private void DisplayArray()
         {
-            ListViewData.Items.Clear();
-            for (int x = 0; x < row; x++)
-            {
-                ListViewItem item = new ListViewItem(DataTable[x, 0]);
-                item.SubItems.Add(DataTable[x, 1]);
-                item.SubItems.Add(DataTable[x, 2]);
-                item.SubItems.Add(DataTable[x, 3]);
-                item.SubItems.Add(DataTable[x, 4]);
-                ListViewData.Items.Add(item);
-            }
+           
         }
 
         private void ButtonFillDisplay_MouseClick(object sender, MouseEventArgs e)
@@ -52,5 +52,43 @@ namespace DataTable
             FillArray();
             DisplayArray();
         }
+
+
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+           
+        }
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+          
+            
+               
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void LoadButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BinarySearch_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BubbleSort_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }
