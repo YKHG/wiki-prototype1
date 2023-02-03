@@ -37,13 +37,18 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ButtonFillDisplay
             // 
-            this.ButtonFillDisplay.Location = new System.Drawing.Point(12, 12);
+            this.ButtonFillDisplay.Location = new System.Drawing.Point(22, 22);
+            this.ButtonFillDisplay.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.ButtonFillDisplay.Name = "ButtonFillDisplay";
-            this.ButtonFillDisplay.Size = new System.Drawing.Size(96, 23);
+            this.ButtonFillDisplay.Size = new System.Drawing.Size(176, 42);
             this.ButtonFillDisplay.TabIndex = 0;
             this.ButtonFillDisplay.Text = "Fill and Display";
             this.ButtonFillDisplay.UseVisualStyleBackColor = true;
@@ -51,17 +56,19 @@
             // 
             // TextBoxInput
             // 
-            this.TextBoxInput.Location = new System.Drawing.Point(154, 27);
+            this.TextBoxInput.Location = new System.Drawing.Point(282, 50);
+            this.TextBoxInput.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.TextBoxInput.Name = "TextBoxInput";
-            this.TextBoxInput.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxInput.Size = new System.Drawing.Size(180, 29);
             this.TextBoxInput.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(154, 11);
+            this.label1.Location = new System.Drawing.Point(282, 20);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 13);
+            this.label1.Size = new System.Drawing.Size(129, 25);
             this.label1.TabIndex = 3;
             this.label1.Text = "Input Number";
             // 
@@ -74,9 +81,10 @@
             this.columnHeader4,
             this.columnHeader5});
             this.ListViewData.HideSelection = false;
-            this.ListViewData.Location = new System.Drawing.Point(15, 63);
+            this.ListViewData.Location = new System.Drawing.Point(28, 116);
+            this.ListViewData.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.ListViewData.Name = "ListViewData";
-            this.ListViewData.Size = new System.Drawing.Size(325, 362);
+            this.ListViewData.Size = new System.Drawing.Size(592, 665);
             this.ListViewData.TabIndex = 4;
             this.ListViewData.UseCompatibleStateImageBehavior = false;
             this.ListViewData.View = System.Windows.Forms.View.Details;
@@ -101,15 +109,56 @@
             // 
             this.columnHeader5.Text = "Col_5";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(713, 177);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 41);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(713, 241);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(110, 42);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(713, 411);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(110, 42);
+            this.button3.TabIndex = 7;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(713, 323);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(110, 42);
+            this.button4.TabIndex = 8;
+            this.button4.Text = "button4";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
             // FormDataTable
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 469);
+            this.ClientSize = new System.Drawing.Size(1243, 866);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.ListViewData);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TextBoxInput);
             this.Controls.Add(this.ButtonFillDisplay);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "FormDataTable";
             this.Text = "My Data Table";
             this.ResumeLayout(false);
@@ -128,6 +177,10 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
     }
 }
 

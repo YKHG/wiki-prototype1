@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-// Author Stewart, Date 03/02/2023
-// Simple data table example
+// chenming xu Date 03/02/2023
+// id30063012 wiki prototype project
 namespace DataTable
 {
     public partial class FormDataTable : Form
