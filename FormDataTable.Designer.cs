@@ -31,8 +31,6 @@
             this.ListViewData = new System.Windows.Forms.ListView();
             this.Names = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Category = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Structure = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Definition = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.AddButton = new System.Windows.Forms.Button();
             this.EditButton = new System.Windows.Forms.Button();
             this.BubbleSort = new System.Windows.Forms.Button();
@@ -57,14 +55,12 @@
             // 
             this.ListViewData.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Names,
-            this.Category,
-            this.Structure,
-            this.Definition});
+            this.Category});
             this.ListViewData.HideSelection = false;
-            this.ListViewData.Location = new System.Drawing.Point(15, 156);
+            this.ListViewData.Location = new System.Drawing.Point(72, 139);
             this.ListViewData.Margin = new System.Windows.Forms.Padding(6);
             this.ListViewData.Name = "ListViewData";
-            this.ListViewData.Size = new System.Drawing.Size(647, 665);
+            this.ListViewData.Size = new System.Drawing.Size(533, 665);
             this.ListViewData.TabIndex = 4;
             this.ListViewData.UseCompatibleStateImageBehavior = false;
             this.ListViewData.View = System.Windows.Forms.View.Details;
@@ -73,22 +69,12 @@
             // Names
             // 
             this.Names.Text = "Name";
-            this.Names.Width = 102;
+            this.Names.Width = 100;
             // 
             // Category
             // 
             this.Category.Text = "Category";
-            this.Category.Width = 130;
-            // 
-            // Structure
-            // 
-            this.Structure.Text = "Structure";
-            this.Structure.Width = 112;
-            // 
-            // Definition
-            // 
-            this.Definition.Text = "Definition";
-            this.Definition.Width = 120;
+            this.Category.Width = 100;
             // 
             // AddButton
             // 
@@ -176,17 +162,17 @@
             // 
             // txtStructure
             // 
-            this.txtStructure.Location = new System.Drawing.Point(682, 327);
+            this.txtStructure.Location = new System.Drawing.Point(682, 334);
             this.txtStructure.Name = "txtStructure";
             this.txtStructure.Size = new System.Drawing.Size(192, 29);
             this.txtStructure.TabIndex = 14;
             // 
             // txtDefinition
             // 
-            this.txtDefinition.Location = new System.Drawing.Point(682, 399);
+            this.txtDefinition.Location = new System.Drawing.Point(682, 420);
             this.txtDefinition.Multiline = true;
             this.txtDefinition.Name = "txtDefinition";
-            this.txtDefinition.Size = new System.Drawing.Size(333, 153);
+            this.txtDefinition.Size = new System.Drawing.Size(348, 174);
             this.txtDefinition.TabIndex = 15;
             // 
             // dassssss
@@ -282,8 +268,6 @@
         private System.Windows.Forms.ListView ListViewData;
         private System.Windows.Forms.ColumnHeader Names;
         private System.Windows.Forms.ColumnHeader Category;
-        private System.Windows.Forms.ColumnHeader Structure;
-        private System.Windows.Forms.ColumnHeader Definition;
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.Button EditButton;
         private System.Windows.Forms.Button BubbleSort;
