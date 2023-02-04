@@ -26,6 +26,7 @@ namespace DataTable
 
         private void ClearTextBoxes()
         {
+            // clear the content in all text boxes
             txtName.Clear();
             txtCategory.Clear();
             txtStructure.Clear();
@@ -34,16 +35,21 @@ namespace DataTable
         }
 
 
-        
+        // display the contents of the 2D array in the list view
         private void DisplayArray()
         {
             ListViewData.Items.Clear();
+            //iterate through each row in the DataTable
             for (int i = 0; i < row; i++)
             {
+                //if the first column of the name in datatable is not null or empty, 
                 if (!String.IsNullOrEmpty(DataTable[i, 0]))
                 {
+                    // add datable item to listview item.
                     ListViewItem item = new ListViewItem(DataTable[i, 0]);
+                    // Add the second column's value as a subitem to the ListViewItem.
                     item.SubItems.Add(DataTable[i, 1]);
+                    //add listViewItem to listViewData
                     ListViewData.Items.Add(item);
                 }
             }
@@ -61,7 +67,7 @@ namespace DataTable
                 toolStripStatusLabel1.Text = "Error: Please fill all fields.";
                 return;
             }
-
+            // add the values entered in the text boxes to the next available row in array
             for (int i = 0; i < row; i++)
             {
                 if (String.IsNullOrEmpty(DataTable[i, 0]))
@@ -70,7 +76,7 @@ namespace DataTable
                     DataTable[i, 1] = txtCategory.Text;
                     DataTable[i, 2] = txtStructure.Text;
                     DataTable[i, 3] = txtDefinition.Text;
-                    MessageBox.Show("Definition added successfully!");
+                    MessageBox.Show("Data added successfully!");
                     break;
                 }
             }
@@ -80,22 +86,26 @@ namespace DataTable
         }
         private void EditButton_Click(object sender, EventArgs e)
         {
+            // check if a dataTable is selected in the list view
             if (ListViewData.SelectedIndices.Count == 0)
             {
-                MessageBox.Show("Please select a definition from the List View to edit");
+                MessageBox.Show("Please select a data from the List View to edit");
                 return;
             }
 
             int selectedIndex = ListViewData.SelectedIndices[0];
+            //iterate through each row in the DataTable
             for (int i = 0; i < row; i++)
             {
+                //if the column in the DataTable matches the selected item in the ListViewData 
                 if (DataTable[i, 0] == ListViewData.Items[selectedIndex].Text)
                 {
+                    //update the DataTable with the values from the TextBox 
                     DataTable[i, 0] = txtName.Text;
                     DataTable[i, 1] = txtCategory.Text;
                     DataTable[i, 2] = txtStructure.Text;
                     DataTable[i, 3] = txtStructure.Text;
-
+                    //update the selected item in the ListViewData with the updated values from the DataTable
                     ListViewData.Items[selectedIndex].Text = DataTable[i, 0];
                     ListViewData.Items[selectedIndex].SubItems[1].Text = DataTable[i, 1];
                     MessageBox.Show("Edit successful");
@@ -114,6 +124,7 @@ namespace DataTable
             int selectedIndex = ListViewData.SelectedIndices[0];
             for (int i = 0; i < row; i++)
             {
+                //use selected index for i. and display selected row and show it on text boxes.
                 if (DataTable[i, 0] == ListViewData.Items[selectedIndex].Text)
                 {
                     txtName.Text = DataTable[i, 0];
