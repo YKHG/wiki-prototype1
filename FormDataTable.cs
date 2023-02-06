@@ -33,6 +33,14 @@ namespace DataTable
             txtDefinition.Clear();
             txtName.Focus();
         }
+        
+        private void Swap(ref string a, ref string b)
+        {
+        //swap the values of two elements
+        string temp = a;
+         a = b;
+         b = temp;
+        }
 
 
         // display the contents of the 2D array in the list view
@@ -139,7 +147,24 @@ namespace DataTable
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-
+            // Find the current row in the DataTable that contains the name in the txtName textBox.
+             int currentRow = 0;
+            while (DataTable[currentRow, 0] != txtName.Text)
+            {
+                currentRow++;
+            }
+            // Show a confirmation message to the user to confirm the delete.
+            DialogResult result = MessageBox.Show("Are you sure you want to delete the definition?", "Delete Definition", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                 // Clear the current row in the DataTable
+                DataTable[currentRow, 0] = null;
+                DataTable[currentRow, 1] = null;
+                DataTable[currentRow, 2] = null;
+                DataTable[currentRow, 3] = null;
+                ClearTextBoxes();
+                DisplayArray();
+            }
         }
         private void LoadButton_Click(object sender, EventArgs e)
         {
@@ -158,7 +183,24 @@ namespace DataTable
 
         private void BubbleSort_Click(object sender, EventArgs e)
         {
-
+            // Get the number of rows in the DataTable 
+             int n = DataTable.GetLength(0);
+        for (int i = 0; i < n-1; i++)
+           {
+            for (int j = 0; j < n-i-1; j++)
+                {
+            //compare the name in the array
+            if (string.Compare(DataTable[j, 0], DataTable[j+1, 0]) > 0)
+            {
+                //swap the elements in the array if the name is greater than next element
+                Swap(ref DataTable[j, 0], ref DataTable[j+1, 0]);
+                Swap(ref DataTable[j, 1], ref DataTable[j+1, 1]);
+                Swap(ref DataTable[j, 2], ref DataTable[j+1, 2]);
+                Swap(ref DataTable[j, 3], ref DataTable[j+1, 3]);
+                       DisplayArray();
+            }
+        }
+    }
         }
 
         
