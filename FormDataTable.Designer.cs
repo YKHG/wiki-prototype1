@@ -48,6 +48,8 @@
             this.txtName1 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.SearchTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +59,7 @@
             this.Names,
             this.Category});
             this.ListViewData.HideSelection = false;
-            this.ListViewData.Location = new System.Drawing.Point(72, 139);
+            this.ListViewData.Location = new System.Drawing.Point(64, 139);
             this.ListViewData.Margin = new System.Windows.Forms.Padding(6);
             this.ListViewData.Name = "ListViewData";
             this.ListViewData.Size = new System.Drawing.Size(533, 665);
@@ -69,12 +71,12 @@
             // Names
             // 
             this.Names.Text = "Name";
-            this.Names.Width = 100;
+            this.Names.Width = 130;
             // 
             // Category
             // 
             this.Category.Text = "Category";
-            this.Category.Width = 100;
+            this.Category.Width = 203;
             // 
             // AddButton
             // 
@@ -100,7 +102,7 @@
             // 
             this.BubbleSort.Location = new System.Drawing.Point(683, 625);
             this.BubbleSort.Name = "BubbleSort";
-            this.BubbleSort.Size = new System.Drawing.Size(159, 42);
+            this.BubbleSort.Size = new System.Drawing.Size(143, 42);
             this.BubbleSort.TabIndex = 7;
             this.BubbleSort.Text = "BubbleSort";
             this.BubbleSort.UseVisualStyleBackColor = true;
@@ -118,9 +120,9 @@
             // 
             // BinarySearch
             // 
-            this.BinarySearch.Location = new System.Drawing.Point(683, 740);
+            this.BinarySearch.Location = new System.Drawing.Point(683, 725);
             this.BinarySearch.Name = "BinarySearch";
-            this.BinarySearch.Size = new System.Drawing.Size(159, 50);
+            this.BinarySearch.Size = new System.Drawing.Size(143, 40);
             this.BinarySearch.TabIndex = 9;
             this.BinarySearch.Text = "BinarySearch";
             this.BinarySearch.UseVisualStyleBackColor = true;
@@ -220,23 +222,41 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(28, 28);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 827);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 844);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1278, 39);
+            this.statusStrip1.Size = new System.Drawing.Size(1278, 22);
             this.statusStrip1.TabIndex = 20;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(206, 30);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 13);
+            // 
+            // SearchTextBox
+            // 
+            this.SearchTextBox.Location = new System.Drawing.Point(873, 736);
+            this.SearchTextBox.Name = "SearchTextBox";
+            this.SearchTextBox.Size = new System.Drawing.Size(180, 29);
+            this.SearchTextBox.TabIndex = 21;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(868, 697);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(123, 25);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Input Search";
             // 
             // TheDataTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1278, 866);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.SearchTextBox);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.txtName1);
             this.Controls.Add(this.ssss);
@@ -285,6 +305,8 @@
         private System.Windows.Forms.Label txtName1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.TextBox SearchTextBox;
+        private System.Windows.Forms.Label label1;
     }
 }
 
