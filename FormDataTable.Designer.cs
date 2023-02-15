@@ -100,9 +100,9 @@
             // 
             // BubbleSort
             // 
-            this.BubbleSort.Location = new System.Drawing.Point(683, 625);
+            this.BubbleSort.Location = new System.Drawing.Point(972, 23);
             this.BubbleSort.Name = "BubbleSort";
-            this.BubbleSort.Size = new System.Drawing.Size(143, 42);
+            this.BubbleSort.Size = new System.Drawing.Size(122, 42);
             this.BubbleSort.TabIndex = 7;
             this.BubbleSort.Text = "BubbleSort";
             this.BubbleSort.UseVisualStyleBackColor = true;
@@ -120,7 +120,7 @@
             // 
             // BinarySearch
             // 
-            this.BinarySearch.Location = new System.Drawing.Point(683, 725);
+            this.BinarySearch.Location = new System.Drawing.Point(675, 764);
             this.BinarySearch.Name = "BinarySearch";
             this.BinarySearch.Size = new System.Drawing.Size(143, 40);
             this.BinarySearch.TabIndex = 9;
@@ -171,16 +171,16 @@
             // 
             // txtDefinition
             // 
-            this.txtDefinition.Location = new System.Drawing.Point(682, 420);
+            this.txtDefinition.Location = new System.Drawing.Point(683, 436);
             this.txtDefinition.Multiline = true;
             this.txtDefinition.Name = "txtDefinition";
-            this.txtDefinition.Size = new System.Drawing.Size(348, 174);
+            this.txtDefinition.Size = new System.Drawing.Size(368, 261);
             this.txtDefinition.TabIndex = 15;
             // 
             // dassssss
             // 
             this.dassssss.AutoSize = true;
-            this.dassssss.Location = new System.Drawing.Point(677, 371);
+            this.dassssss.Location = new System.Drawing.Point(678, 387);
             this.dassssss.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.dassssss.Name = "dassssss";
             this.dassssss.Size = new System.Drawing.Size(140, 25);
@@ -235,7 +235,7 @@
             // 
             // SearchTextBox
             // 
-            this.SearchTextBox.Location = new System.Drawing.Point(873, 736);
+            this.SearchTextBox.Location = new System.Drawing.Point(884, 775);
             this.SearchTextBox.Name = "SearchTextBox";
             this.SearchTextBox.Size = new System.Drawing.Size(180, 29);
             this.SearchTextBox.TabIndex = 21;
@@ -243,12 +243,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(868, 697);
+            this.label1.Location = new System.Drawing.Point(879, 747);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 25);
+            this.label1.Size = new System.Drawing.Size(198, 25);
             this.label1.TabIndex = 22;
-            this.label1.Text = "Input Search";
+            this.label1.Text = "Input name to Search";
             // 
             // TheDataTable
             // 

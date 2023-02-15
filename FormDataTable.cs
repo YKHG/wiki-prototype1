@@ -35,6 +35,34 @@ namespace DataTable
             txtDefinition.Clear();
             txtName.Focus();
         }
+        private bool IsDataTableFull(string[,] dataTable)
+        {
+            // Check if all rows in the DataTable are filled
+            for (int i = 0; i < dataTable.GetLength(0); i++)
+            {
+                if (string.IsNullOrEmpty(dataTable[i, 0]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        private void ClearDataTable()
+        {
+            // Set all values in DataTable to null or empty.
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    DataTable[i, j] = null;
+                }
+            }
+
+            // Clear text boxes and list view.
+            ClearTextBoxes();
+            ListViewData.Items.Clear();
+            AddButton.Enabled = true;
+        }
 
         private void Swap(ref string a, ref string b)
         {
@@ -82,6 +110,15 @@ namespace DataTable
 
         private void AddButton_MouseClick(object sender, MouseEventArgs e)
         {
+
+            // Check if DataTable is full and disable Add button if it is
+
+            if (IsDataTableFull(DataTable))
+            {
+                AddButton.Enabled = false;
+                MessageBox.Show("List is full");
+            }
+
             // Check if all textbox are filled
             if (string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtDefinition.Text) ||
                 string.IsNullOrEmpty(txtCategory.Text) || string.IsNullOrEmpty(txtStructure.Text))
@@ -168,7 +205,7 @@ namespace DataTable
                 currentRow++;
             }
             // Show a confirmation message to the user to confirm the delete.
-            DialogResult result = MessageBox.Show("Are you sure you want to delete the definition?", "Delete Definition", MessageBoxButtons.YesNo);
+            DialogResult result = MessageBox.Show("Are you sure you want to delete the data?", "Delete Data", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
                 // Clear the current row in the DataTable
@@ -178,6 +215,7 @@ namespace DataTable
                 DataTable[currentRow, 3] = null;
                 ClearTextBoxes();
                 DisplayArray();
+                AddButton.Enabled = true;
             }
         }
 
@@ -222,9 +260,12 @@ namespace DataTable
     
 
 
-        private void LoadButton_Click(object sender, EventArgs e) { 
-             // Display OpenFileDialog to select a binary file to load data from
-                OpenFileDialog openFileDialog = new OpenFileDialog();
+        private void LoadButton_Click(object sender, EventArgs e) {
+
+            ClearDataTable();
+
+            // Display OpenFileDialog to select a binary file to load data from
+            OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = "Binary Files|*.dat";
                  DialogResult result = openFileDialog.ShowDialog();
 
@@ -330,7 +371,5 @@ namespace DataTable
         }
     }
         }
-
-        
     }
 }
