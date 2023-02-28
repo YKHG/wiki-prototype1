@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.IO.Pipes;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 // chenming xu Date 01/02/2023
 // id30063012 wiki prototype project
@@ -17,10 +8,14 @@ namespace DataTable
 {
     public partial class TheDataTable : Form
     {
+
         public TheDataTable()
         {
             InitializeComponent();
         }
+        
+
+
         // global variables - 2 Dim array of string
         static int row = 12;
         static int col = 4;
