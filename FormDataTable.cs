@@ -1,25 +1,26 @@
-﻿using System;
+﻿using DataTable.wiki;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 // chenming xu Date 01/02/2023
 // id30063012 wiki prototype project
 namespace DataTable
 {
+
     public partial class TheDataTable : Form
     {
-
         public TheDataTable()
         {
             InitializeComponent();
+            
         }
-        
 
-
-        // global variables - 2 Dim array of string
-        static int row = 12;
-        static int col = 4;
-        string[,] DataTable = new string[row, col];
+        //list for data structure 
+        List<Information> Wiki = new List<Information>();
 
         private void ClearTextBoxes()
         {
@@ -30,12 +31,19 @@ namespace DataTable
             txtDefinition.Clear();
             txtName.Focus();
         }
-        private bool IsDataTableFull(string[,] dataTable)
+
+        private bool IsDataTableFull()
         {
-            // Check if all rows in the DataTable are filled
-            for (int i = 0; i < dataTable.GetLength(0); i++)
+            // Check if all rows in the Wiki list are filled
+            return Wiki.Count >= 12;
+        }
+
+        private bool IsListSorted(List<Information> Wiki)
+        {
+            // Check if the data in the Wiki list is sorted
+            for (int i = 1; i < Wiki.Count; i++)
             {
-                if (string.IsNullOrEmpty(dataTable[i, 0]))
+                if (string.Compare(Wiki[i - 1].Name, Wiki[i].Name) > 0)
                 {
                     return false;
                 }
@@ -44,71 +52,33 @@ namespace DataTable
         }
         private void ClearDataTable()
         {
-            // Set all values in DataTable to null or empty.
-            for (int i = 0; i < row; i++)
-            {
-                for (int j = 0; j < col; j++)
-                {
-                    DataTable[i, j] = null;
-                }
-            }
+            // Clear the Wiki list
+            Wiki.Clear();
 
-            // Clear text boxes and list view.
+            // Clear text boxes and list view
             ClearTextBoxes();
             ListViewData.Items.Clear();
             AddButton.Enabled = true;
         }
 
-        private void Swap(ref string a, ref string b)
-        {
-            //swap the values of two elements
-            string temp = a;
-            a = b;
-            b = temp;
-        }
-        private bool IsDataTableSorted(string[,] dataTable)
-        {
-            // Check if the data in the DataTable is sorted
-            for (int i = 1; i < dataTable.GetLength(0); i++)
-            {
-                if (string.Compare(dataTable[i - 1, 0], dataTable[i, 0]) > 0)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-
-        // display the contents of the 2D array in the list view
-        private void DisplayArray()
+        private void DisplayList()
         {
             ListViewData.Items.Clear();
-            //iterate through each row in the DataTable
-            for (int i = 0; i < row; i++)
+            foreach (Information info in Wiki)
             {
-                //if the first column of the name in datatable is not null or empty, 
-                if (!String.IsNullOrEmpty(DataTable[i, 0]))
-                {
-                    // add datable item to listview item.
-                    ListViewItem item = new ListViewItem(DataTable[i, 0]);
-                    // Add the second column's value as a subitem to the ListViewItem.
-                    item.SubItems.Add(DataTable[i, 1]);
-                    //add listViewItem to listViewData
-                    ListViewData.Items.Add(item);
-                }
+                // add datable item to listview item.
+                ListViewItem item = new ListViewItem(info.Name);
+                // Add the second column's value as a subitem to the ListViewItem.
+                item.SubItems.Add(info.Category);
+                //add listViewItem to listViewData
+                ListViewData.Items.Add(item);
             }
         }
-
-
-
 
         private void AddButton_MouseClick(object sender, MouseEventArgs e)
         {
-
-            // Check if DataTable is full and disable Add button if it is
-
-            if (IsDataTableFull(DataTable))
+            // Check if Wiki list is full and disable Add button if it is
+            if (IsDataTableFull())
             {
                 AddButton.Enabled = false;
                 MessageBox.Show("List is full");
@@ -121,26 +91,34 @@ namespace DataTable
                 toolStripStatusLabel1.Text = "Error: Please fill all fields.";
                 return;
             }
-            // add the values entered in the text boxes to the next available row in array
-            for (int i = 0; i < row; i++)
-            {
-                if (String.IsNullOrEmpty(DataTable[i, 0]))
-                {
-                    DataTable[i, 0] = txtName.Text;
-                    DataTable[i, 1] = txtCategory.Text;
-                    DataTable[i, 2] = txtStructure.Text;
-                    DataTable[i, 3] = txtDefinition.Text;
-                    MessageBox.Show("Data added successfully!");
-                    break;
-                }
-            }
-            ClearTextBoxes();
-            DisplayArray();
 
+            // Create a new Information object with the data from the text boxes
+            Information info = new Information
+            {
+                Name = txtName.Text,
+                Category = txtCategory.Text,
+                Structure = txtStructure.Text,
+                Definition = txtDefinition.Text
+            };
+
+            // Add the Information object to the Wiki list
+            Wiki.Add(info);
+            MessageBox.Show("Data added successfully!");
+
+            // Clear the text boxes and display the updated list
+            ClearTextBoxes();
+            DisplayList();
         }
+        private void Swap(ref string a, ref string b)
+        {
+            string temp = a;
+                a = b;
+                b = temp;
+        }
+
         private void EditButton_Click(object sender, EventArgs e)
         {
-            // check if a dataTable is selected in the list view
+            // Check if a data item is selected in the list view
             if (ListViewData.SelectedIndices.Count == 0)
             {
                 MessageBox.Show("Please select a data from the List View to edit");
@@ -148,24 +126,27 @@ namespace DataTable
             }
 
             int selectedIndex = ListViewData.SelectedIndices[0];
-            //iterate through each row in the DataTable
-            for (int i = 0; i < row; i++)
+
+            // Find the Information object in the Wiki list that matches the selected item in the list view
+            Information info = Wiki.FirstOrDefault(x => x.Name == ListViewData.Items[selectedIndex].Text);
+
+            if (info == null)
             {
-                //if the column in the DataTable matches the selected item in the ListViewData 
-                if (DataTable[i, 0] == ListViewData.Items[selectedIndex].Text)
-                {
-                    //update the DataTable with the values from the TextBox 
-                    DataTable[i, 0] = txtName.Text;
-                    DataTable[i, 1] = txtCategory.Text;
-                    DataTable[i, 2] = txtStructure.Text;
-                    DataTable[i, 3] = txtDefinition.Text;
-                    //update the selected item in the ListViewData with the updated values from the DataTable
-                    ListViewData.Items[selectedIndex].Text = DataTable[i, 0];
-                    ListViewData.Items[selectedIndex].SubItems[1].Text = DataTable[i, 1];
-                    MessageBox.Show("Edit successful");
-                    break;
-                }
-            } 
+                MessageBox.Show("Error: Could not find selected data item");
+                return;
+            }
+
+            // Update the Information object with the values from the text boxes
+            info.Name = txtName.Text;
+            info.Category = txtCategory.Text;
+            info.Structure = txtStructure.Text;
+            info.Definition = txtDefinition.Text;
+
+            // Update the selected item in the list view with the updated values from the Information object
+            ListViewData.Items[selectedIndex].Text = info.Name;
+            ListViewData.Items[selectedIndex].SubItems[1].Text = info.Category;
+
+            MessageBox.Show("Edit successful");
         }
 
         private void ListViewData_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -176,123 +157,88 @@ namespace DataTable
             }
 
             int selectedIndex = ListViewData.SelectedIndices[0];
-            for (int i = 0; i < row; i++)
+            string selectedName = ListViewData.Items[selectedIndex].Text;
+            Information selectedDefinition = Wiki.Find(d => d.Name == selectedName);
+            if (selectedDefinition != null)
             {
-                //use selected index for i. and display selected row and show it on text boxes.
-                if (DataTable[i, 0] == ListViewData.Items[selectedIndex].Text)
-                {
-                    txtName.Text = DataTable[i, 0];
-                    txtCategory.Text = DataTable[i, 1];
-                    txtStructure.Text = DataTable[i, 2];
-                    txtDefinition.Text = DataTable[i, 3];
-                    break;
-                }
+                txtName.Text = selectedDefinition.Name;
+                txtCategory.Text = selectedDefinition.Category;
+                txtStructure.Text = selectedDefinition.Structure;
+                txtDefinition.Text = selectedDefinition.Definition;
             }
         }
+
 
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            // Find the current row in the DataTable that contains the name in the txtName textBox.
-            int currentRow = 0;
-            while (DataTable[currentRow, 0] != txtName.Text)
+            // check if a definition is selected in the list view
+            if (ListViewData.SelectedIndices.Count == 0)
             {
-                currentRow++;
+                MessageBox.Show("Please select a definition from the List View to delete");
+                return;
             }
-            // Show a confirmation message to the user to confirm the delete.
-            DialogResult result = MessageBox.Show("Are you sure you want to delete the data?", "Delete Data", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
+
+            int selectedIndex = ListViewData.SelectedIndices[0];
+            string selectedName = ListViewData.Items[selectedIndex].Text;
+            Information selectedInformation = Wiki.Find(d => d.Name == selectedName);
+            if (selectedInformation != null)
             {
-                // Clear the current row in the DataTable
-                DataTable[currentRow, 0] = null;
-                DataTable[currentRow, 1] = null;
-                DataTable[currentRow, 2] = null;
-                DataTable[currentRow, 3] = null;
-                ClearTextBoxes();
-                DisplayArray();
-                AddButton.Enabled = true;
+                Wiki.Remove(selectedInformation);
+                ListViewData.Items.RemoveAt(selectedIndex);
+                MessageBox.Show("Delete successful");
             }
+            // enable the Add button after deleting a definition
+            AddButton.Enabled = true;
         }
+
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            // Show the SaveFileDialog to select the location and name of the binary file
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Binary Files (*.dat)|*.dat";
-            saveFileDialog.Title = "Save Definitions to Binary File";
+            saveFileDialog.Filter = "Text Files (*.txt)|*.txt";
+            saveFileDialog.Title = "Save Data Table";
+
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                // Open a file stream and binary writer to write the data to the binary file
-                using (FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write))
-                using (BinaryWriter binaryWriter = new BinaryWriter(fileStream))
+                using (StreamWriter sw = new StreamWriter(saveFileDialog.FileName))
                 {
-                    // Write the data in the DataTable to the binary file
-                    int n = DataTable.GetLength(0);
-                    for (int i = 0; i < n; i++)
+                    // Write the data from the Wiki list to the file
+                    foreach (Information info in Wiki)
                     {
-                        // Check if the value is not null or empty before writing to the file
-                        if (!string.IsNullOrEmpty(DataTable[i, 0]))
-                        {
-                            binaryWriter.Write(DataTable[i, 0]);
-                        }
-                        if (!string.IsNullOrEmpty(DataTable[i, 1]))
-                        {
-                            binaryWriter.Write(DataTable[i, 1]);
-                        }
-                        if (!string.IsNullOrEmpty(DataTable[i, 2]))
-                        {
-                            binaryWriter.Write(DataTable[i, 2]);
-                        }
-                        if (!string.IsNullOrEmpty(DataTable[i, 3]))
-                        {
-                            binaryWriter.Write(DataTable[i, 3]);
-                        }
+                        sw.WriteLine($"{info.Name}|{info.Category}|{info.Structure}|{info.Definition}");
                     }
-                    MessageBox.Show("Data saved successfully!", "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    toolStripStatusLabel1.Text = "Data saved successfully!";
                 }
             }
         }
-    
 
 
-        private void LoadButton_Click(object sender, EventArgs e) {
 
-            ClearDataTable();
-
-            // Display OpenFileDialog to select a binary file to load data from
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter = "Binary Files|*.dat";
-                 DialogResult result = openFileDialog.ShowDialog();
-
-             // Check if the user selected a file
-        if (result == DialogResult.OK)
+        private void LoadButton_Click(object sender, EventArgs e)
         {
-          // Create a FileStream to read the selected file
-          using (FileStream fileStream = new FileStream(openFileDialog.FileName, FileMode.Open))
-          {
-              // Create a BinaryReader to read data from the file
-              using (BinaryReader binaryReader = new BinaryReader(fileStream))
-              {
-                 // Read the data into the DataTable 
-                    for (int i = 0; i<DataTable.GetLength(0); i++)
-                   {
-                        for (int j = 0; j<DataTable.GetLength(1); j++)
-                        {
-                           try
-                        {
-                            DataTable[i, j] = binaryReader.ReadString();
-                        }
-                        catch (EndOfStreamException)
-                        {
-                            // Handle the exception here
-                        }
-                       }
-                    }   
+            ClearDataTable();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Binary Files|*.dat";
+            DialogResult result = openFileDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                using (FileStream fileStream = new FileStream(openFileDialog.FileName, FileMode.Open))
+                using (BinaryReader binaryReader = new BinaryReader(fileStream))
+                {
+                    while (fileStream.Position != fileStream.Length)
+                    {
+                        var data = new Information();
+                        data.Name = binaryReader.ReadString();
+                        data.Category = binaryReader.ReadString();
+                        data.Structure = binaryReader.ReadString();
+                        data.Definition = binaryReader.ReadString();
+                        Wiki.Add(data);
+                    }
                 }
-          }
-     
-        DisplayArray();
-        }   
+                DisplayList();
+            }
         }
 
 
@@ -302,69 +248,66 @@ namespace DataTable
             // Get the search term from the search textbox
             string searchTerm = SearchTextBox.Text;
             // Perform the binary search
-            int start = 0;
-            int end = DataTable.GetLength(0) - 1;
-            // Check if the data in the DataTable is sorted
-            if (!IsDataTableSorted(DataTable))
+            int index = Wiki.BinarySearch(new Information { Name = searchTerm });
+            if (index >= 0)
             {
-                MessageBox.Show("Data is not sorted. Please sort the data and try again.");
+                // The name was found, display the information in the other textboxes
+                txtName.Text = Wiki[index].Name;
+                txtCategory.Text = Wiki[index].Category;
+                txtStructure.Text = Wiki[index].Structure;
+                txtDefinition.Text = Wiki[index].Definition;
+                MessageBox.Show("Name found");
+                // Highlight the name in the ListView
+                ListViewItem item = ListViewData.FindItemWithText(Wiki[index].Name);
+                if (item != null)
+                {
+                    item.Selected = true;
+                    item.Focused = true;
+                }
+                // Clear the search textbox
+                SearchTextBox.Text = "";
                 return;
             }
-
-            while (start <= end)
+            else
             {
-                int mid = (start + end) / 2;
-                int compare = string.Compare(DataTable[mid, 0], searchTerm);
-                if (compare == 0)
-                {
-                    // The name was found, display the information in the other textboxes
-                    txtName.Text = DataTable[mid, 0];
-                    txtCategory.Text = DataTable[mid, 1];
-                    txtStructure.Text = DataTable[mid, 2];
-                    txtDefinition.Text = DataTable[mid, 3];
-                    MessageBox.Show("Name found");
-                    return;
-                }
-                else if (compare < 0)
-                {
-                    start = mid + 1;
-                }
-                else
-                {
-                    end = mid - 1;
-                }
+                // The name was not found, display an error message and clear the search textbox
+                MessageBox.Show("Name not found.");
+                SearchTextBox.Text = "";
+                ClearTextBoxes();
             }
-
-            // The name was not found, display an error message and clear the search textbox
-            MessageBox.Show("Name not found.");
-            SearchTextBox.Text = "";
-            ClearTextBoxes();
         }
+
 
 
 
         private void BubbleSort_Click(object sender, EventArgs e)
-         {
-            // Get the number of rows in the DataTable 
-             int n = DataTable.GetLength(0);
-       
-            for (int i = 0; i < n-1; i++)
-             {
-                // Inner loop through the rows, starting from j=0 to j=n-i-1
-                 for (int j = 0; j < n-i-1; j++)
-                {
-            //compare the name in the array
-                     if (string.Compare(DataTable[j, 0], DataTable[j+1, 0]) > 0)
-                     {
-                //swap the elements in the array if the name is greater than next element
-                Swap(ref DataTable[j, 0], ref DataTable[j+1, 0]);
-                Swap(ref DataTable[j, 1], ref DataTable[j+1, 1]);
-                Swap(ref DataTable[j, 2], ref DataTable[j+1, 2]);
-                Swap(ref DataTable[j, 3], ref DataTable[j+1, 3]);
-                       DisplayArray();
+        {
+            // Check if the data is already sorted
+            if (IsListSorted(Wiki))
+            {
+                MessageBox.Show("Data is already sorted.");
+                return;
             }
+
+            int n = Wiki.Count;
+            for (int i = 0; i < n - 1; i++)
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    if (string.Compare(Wiki[j].Name, Wiki[j + 1].Name) > 0)
+                    {
+                        // Swap the elements if the name is greater than the next element
+                        Information temp = Wiki[j];
+                        Wiki[j] = Wiki[j + 1];
+                        Wiki[j + 1] = temp;
+                    }
+                }
+            }
+
+            // Update the ListView and display a success message
+            DisplayList();
+            MessageBox.Show("Data sorted successfully.");
         }
-    }
-        }
+
     }
 }

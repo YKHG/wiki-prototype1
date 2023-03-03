@@ -1,47 +1,54 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-class Information : IComparable<Information>
+namespace DataTable
 {
-    private string name;
-    private string category;
-    private string structure;
-    private string definition;
+    using System;
 
-    public Information(string name, string category, string structure, string definition)
+    namespace wiki
     {
-        this.name = name;
-        this.category = category;
-        this.structure = structure;
-        this.definition = definition;
+        class Information : IComparable<Information>
+        {
+            // Private fields for data structure
+            private string name;
+            private string category;
+            private string structure;
+            private string definition;
+
+            // Properties for the private fields
+            public string Name
+            {
+                get { return name; }
+                set { name = value; }
+            }
+
+            public string Category
+            {
+                get { return category; }
+                set { category = value; }
+            }
+
+            public string Structure
+            {
+                get { return structure; }
+                set { structure = value; }
+            }
+
+            public string Definition
+            {
+                get { return definition; }
+                set { definition = value; }
+            }
+
+            // IComparable implementation for sorting by Name
+            public int CompareTo(Information other)
+            {
+                return this.Name.CompareTo(other.Name);
+            }
+        }
     }
 
-    public string Name
-    {
-        get { return name; }
-        set { name = value; }
-    }
-
-    public string Category
-    {
-        get { return category; }
-        set { category = value; }
-    }
-
-    public string Structure
-    {
-        get { return structure; }
-        set { structure = value; }
-    }
-
-    public string Definition
-    {
-        get { return definition; }
-        set { definition = value; }
-    }
-
-    public int CompareTo(Information other)
-    {
-        return this.Name.CompareTo(other.Name);
-    }
 }
- 
