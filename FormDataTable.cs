@@ -28,8 +28,7 @@ namespace DataTable
         {
             // clear the content in all text boxes
             txtName.Clear();
-            txtCategory.Clear();
-            txtStructure.Clear();
+         
             txtDefinition.Clear();
             comboBox1.SelectedIndex = -1;
             rbLinear.Checked = false;
@@ -99,9 +98,10 @@ namespace DataTable
         }
 
 
-
+        
         private void AddButton_MouseClick(object sender, MouseEventArgs e)
         {
+            string structure = GetSelectedRadioButtonValue();
             // Check if Wiki list is full and disable Add button if it is
             if (IsDataTableFull())
             {
@@ -123,7 +123,7 @@ namespace DataTable
                 return;
             }
             // Get the selected radio button
-            string structure = GetSelectedRadioButtonValue();
+            
 
             // Create a new Information object with the data from the text boxes
             Information info = new Information
@@ -166,7 +166,7 @@ namespace DataTable
                 return "";
             }
         }
-
+        
         private void HighlightStructure(int index)
         {
             switch (index)
@@ -207,6 +207,7 @@ namespace DataTable
 
         private void EditButton_Click(object sender, EventArgs e)
         {
+            string structure = GetSelectedRadioButtonValue();
             // Check if a data item is selected in the list view
             if (ListViewData.SelectedIndices.Count == 0)
             {
@@ -227,8 +228,8 @@ namespace DataTable
 
             // Update the Information object with the values from the text boxes
             info.Name = txtName.Text;
-            info.Category = txtCategory.Text;
-            info.Structure = txtStructure.Text;
+            info.Category = comboBox1.Text;
+            info.Structure = structure;
             info.Definition = txtDefinition.Text;
 
             // Update the selected item in the list view with the updated values from the Information object
@@ -243,6 +244,7 @@ namespace DataTable
 
         private void ListViewData_SelectedIndexChanged_1(object sender, EventArgs e)
         {
+            string structure = GetSelectedRadioButtonValue();
             if (ListViewData.SelectedItems.Count == 1)
             {
                 // Get the selected item index and find the corresponding Information object
@@ -261,8 +263,8 @@ namespace DataTable
 
                 // Populate the text boxes with the Information object's data
                 txtName.Text = info.Name;
-                txtCategory.Text = info.Category;
-                txtStructure.Text = info.Structure;
+                comboBox1.Text = info.Category;
+                 structure = info.Structure;
                 txtDefinition.Text = info.Definition;
                   comboBox1.Text = info.Category;
                 HighlightStructure(info.Structure == "Linear" ? 0 : 1);
@@ -363,6 +365,7 @@ private void SaveButton_Click(object sender, EventArgs e)
         private void BinarySearch_Click(object sender, EventArgs e)
         {
 
+            string structure = GetSelectedRadioButtonValue();
             if (!IsListSorted(Wiki))
             {
                 MessageBox.Show("Data is not sorted. Please sort the data and try again.");
@@ -376,8 +379,8 @@ private void SaveButton_Click(object sender, EventArgs e)
             {
                 // The name was found, display the information in the other textboxes
                 txtName.Text = Wiki[index].Name;
-                txtCategory.Text = Wiki[index].Category;
-                txtStructure.Text = Wiki[index].Structure;
+                comboBox1.Text = Wiki[index].Category;
+                structure = Wiki[index].Structure;
                 txtDefinition.Text = Wiki[index].Definition;
                 HighlightStructure(Wiki[index].Structure == "Linear" ? 0 : 1);
                 MessageBox.Show("Name found");

@@ -39,11 +39,8 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.LoadButton = new System.Windows.Forms.Button();
             this.txtName = new System.Windows.Forms.TextBox();
-            this.txtCategory = new System.Windows.Forms.TextBox();
-            this.txtStructure = new System.Windows.Forms.TextBox();
             this.txtDefinition = new System.Windows.Forms.TextBox();
             this.dassssss = new System.Windows.Forms.Label();
-            this.sssssss = new System.Windows.Forms.Label();
             this.ssss = new System.Windows.Forms.Label();
             this.txtName1 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -161,23 +158,9 @@
             this.txtName.TabIndex = 12;
             this.txtName.DoubleClick += new System.EventHandler(this.txtName_DoubleClick);
             // 
-            // txtCategory
-            // 
-            this.txtCategory.Location = new System.Drawing.Point(683, 245);
-            this.txtCategory.Name = "txtCategory";
-            this.txtCategory.Size = new System.Drawing.Size(192, 29);
-            this.txtCategory.TabIndex = 13;
-            // 
-            // txtStructure
-            // 
-            this.txtStructure.Location = new System.Drawing.Point(682, 334);
-            this.txtStructure.Name = "txtStructure";
-            this.txtStructure.Size = new System.Drawing.Size(192, 29);
-            this.txtStructure.TabIndex = 14;
-            // 
             // txtDefinition
             // 
-            this.txtDefinition.Location = new System.Drawing.Point(683, 436);
+            this.txtDefinition.Location = new System.Drawing.Point(675, 473);
             this.txtDefinition.Multiline = true;
             this.txtDefinition.Name = "txtDefinition";
             this.txtDefinition.Size = new System.Drawing.Size(368, 261);
@@ -186,22 +169,12 @@
             // dassssss
             // 
             this.dassssss.AutoSize = true;
-            this.dassssss.Location = new System.Drawing.Point(678, 387);
+            this.dassssss.Location = new System.Drawing.Point(678, 430);
             this.dassssss.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.dassssss.Name = "dassssss";
             this.dassssss.Size = new System.Drawing.Size(140, 25);
             this.dassssss.TabIndex = 16;
             this.dassssss.Text = "Input Definition";
-            // 
-            // sssssss
-            // 
-            this.sssssss.AutoSize = true;
-            this.sssssss.Location = new System.Drawing.Point(678, 299);
-            this.sssssss.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.sssssss.Name = "sssssss";
-            this.sssssss.Size = new System.Drawing.Size(139, 25);
-            this.sssssss.TabIndex = 17;
-            this.sssssss.Text = "Input Structure";
             // 
             // ssss
             // 
@@ -266,7 +239,7 @@
             "Graphs ",
             "Abstract ",
             "Hash "});
-            this.comboBox1.Location = new System.Drawing.Point(904, 245);
+            this.comboBox1.Location = new System.Drawing.Point(682, 257);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 32);
             this.comboBox1.TabIndex = 23;
@@ -275,12 +248,12 @@
             // 
             this.groupBox1.Controls.Add(this.rbNonLinear);
             this.groupBox1.Controls.Add(this.rbLinear);
-            this.groupBox1.Location = new System.Drawing.Point(894, 299);
+            this.groupBox1.Location = new System.Drawing.Point(675, 311);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(157, 100);
+            this.groupBox1.Size = new System.Drawing.Size(199, 121);
             this.groupBox1.TabIndex = 24;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Structure";
+            this.groupBox1.Text = "Input Structure";
             // 
             // rbNonLinear
             // 
@@ -296,7 +269,7 @@
             // rbLinear
             // 
             this.rbLinear.AutoSize = true;
-            this.rbLinear.Location = new System.Drawing.Point(10, 38);
+            this.rbLinear.Location = new System.Drawing.Point(10, 36);
             this.rbLinear.Name = "rbLinear";
             this.rbLinear.Size = new System.Drawing.Size(91, 29);
             this.rbLinear.TabIndex = 0;
@@ -316,11 +289,8 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.txtName1);
             this.Controls.Add(this.ssss);
-            this.Controls.Add(this.sssssss);
             this.Controls.Add(this.dassssss);
             this.Controls.Add(this.txtDefinition);
-            this.Controls.Add(this.txtStructure);
-            this.Controls.Add(this.txtCategory);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.LoadButton);
             this.Controls.Add(this.SaveButton);
@@ -354,11 +324,8 @@
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button LoadButton;
         private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.TextBox txtCategory;
-        private System.Windows.Forms.TextBox txtStructure;
         private System.Windows.Forms.TextBox txtDefinition;
         private System.Windows.Forms.Label dassssss;
-        private System.Windows.Forms.Label sssssss;
         private System.Windows.Forms.Label ssss;
         private System.Windows.Forms.Label txtName1;
         private System.Windows.Forms.StatusStrip statusStrip1;
