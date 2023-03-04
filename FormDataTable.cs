@@ -111,7 +111,7 @@ namespace DataTable
 
             // Check if all textbox are filled
             if (string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtDefinition.Text) ||
-            string.IsNullOrEmpty(txtCategory.Text) || string.IsNullOrEmpty(txtStructure.Text))
+            (rbLinear.Checked == false && rbNonLinear.Checked == false) || string.IsNullOrEmpty(comboBox1.Text))
             {
                 toolStripStatusLabel1.Text = "Error: Please fill all fields.";
                 return;
@@ -129,8 +129,9 @@ namespace DataTable
             Information info = new Information
             {
                 Name = txtName.Text,
-                Category = txtCategory.Text,
-                Structure = txtStructure.Text,
+                Category = comboBox1.Text,
+                Structure = structure,
+      
                 Definition = txtDefinition.Text
             };
 
