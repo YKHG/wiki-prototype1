@@ -16,7 +16,9 @@ namespace DataTable
         public TheDataTable()
         {
             InitializeComponent();
-            
+            PopulateCategoryComboBox();
+            ListViewData.SelectedIndexChanged += ListViewData_SelectedIndexChanged_1;
+
         }
 
         //list for data structure 
@@ -29,7 +31,15 @@ namespace DataTable
             txtCategory.Clear();
             txtStructure.Clear();
             txtDefinition.Clear();
+            comboBox1.SelectedIndex = -1;
+            rbLinear.Checked = false;
+            rbNonLinear.Checked = false;
             txtName.Focus();
+        }
+        // Custom ValidName method to check for duplicate names
+        private bool ValidName(string name)
+        {
+            return Wiki.Exists(info => info.Name == name);
         }
 
         private bool IsDataTableFull()
@@ -50,6 +60,8 @@ namespace DataTable
             }
             return true;
         }
+
+
         private void ClearDataTable()
         {
             // Clear the Wiki list
@@ -60,6 +72,17 @@ namespace DataTable
             ListViewData.Items.Clear();
             AddButton.Enabled = true;
         }
+
+
+
+        private void Swap(ref string a, ref string b)
+        {
+            string temp = a;
+            a = b;
+            b = temp;
+        }
+
+
 
         private void DisplayList()
         {
@@ -75,6 +98,8 @@ namespace DataTable
             }
         }
 
+
+
         private void AddButton_MouseClick(object sender, MouseEventArgs e)
         {
             // Check if Wiki list is full and disable Add button if it is
@@ -86,11 +111,19 @@ namespace DataTable
 
             // Check if all textbox are filled
             if (string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtDefinition.Text) ||
-                string.IsNullOrEmpty(txtCategory.Text) || string.IsNullOrEmpty(txtStructure.Text))
+            string.IsNullOrEmpty(txtCategory.Text) || string.IsNullOrEmpty(txtStructure.Text))
             {
                 toolStripStatusLabel1.Text = "Error: Please fill all fields.";
                 return;
             }
+
+            if (ValidName(txtName.Text))
+            {
+                toolStripStatusLabel1.Text = "Error: Name already exists.";
+                return;
+            }
+            // Get the selected radio button
+            string structure = GetSelectedRadioButtonValue();
 
             // Create a new Information object with the data from the text boxes
             Information info = new Information
@@ -109,12 +142,67 @@ namespace DataTable
             ClearTextBoxes();
             DisplayList();
         }
-        private void Swap(ref string a, ref string b)
+       
+
+
+        
+
+
+
+        // Custom method to get the selected radio button value
+        private string GetSelectedRadioButtonValue()
         {
-            string temp = a;
-                a = b;
-                b = temp;
+            if (rbLinear.Checked)
+            {
+                return "Linear";
+            }
+            else if (rbNonLinear.Checked)
+            {
+                return "Non-Linear";
+            }
+            else
+            {
+                return "";
+            }
         }
+
+        private void HighlightStructure(int index)
+        {
+            switch (index)
+            {
+                case 0: // Linear
+                    rbLinear.Checked = true;
+                    rbNonLinear.Checked = false;
+                    break;
+                case 1: // Non-Linear
+                    rbLinear.Checked = false;
+                    rbNonLinear.Checked = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+        private void PopulateCategoryComboBox()
+        {
+            string categoriesFile = "categories.txt";
+            if (File.Exists(categoriesFile))
+            {
+                comboBox1.Items.Clear();
+                string[] categories = File.ReadAllLines(categoriesFile);
+                foreach (string category in categories)
+                {
+                    comboBox1.Items.Add(category);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Categories file not found.");
+            }
+        }
+
+
 
         private void EditButton_Click(object sender, EventArgs e)
         {
@@ -149,28 +237,40 @@ namespace DataTable
             MessageBox.Show("Edit successful");
         }
 
+
+
+
         private void ListViewData_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (ListViewData.SelectedIndices.Count == 0)
+            if (ListViewData.SelectedItems.Count == 1)
             {
-                return;
-            }
+                // Get the selected item index and find the corresponding Information object
+                int selectedIndex = ListViewData.SelectedIndices[0];
+                Information info = Wiki[selectedIndex];
 
-            int selectedIndex = ListViewData.SelectedIndices[0];
-            string selectedName = ListViewData.Items[selectedIndex].Text;
-            Information selectedDefinition = Wiki.Find(d => d.Name == selectedName);
-            if (selectedDefinition != null)
-            {
-                txtName.Text = selectedDefinition.Name;
-                txtCategory.Text = selectedDefinition.Category;
-                txtStructure.Text = selectedDefinition.Structure;
-                txtDefinition.Text = selectedDefinition.Definition;
+                // Highlight the appropriate radio button
+                if (info.Structure == "Linear")
+                {
+                    HighlightStructure(0);
+                }
+                else if (info.Structure == "Non-Linear")
+                {
+                    HighlightStructure(1);
+                }
+
+                // Populate the text boxes with the Information object's data
+                txtName.Text = info.Name;
+                txtCategory.Text = info.Category;
+                txtStructure.Text = info.Structure;
+                txtDefinition.Text = info.Definition;
+                  comboBox1.Text = info.Category;
+                HighlightStructure(info.Structure == "Linear" ? 0 : 1);
             }
         }
 
 
 
-        private void DeleteButton_Click(object sender, EventArgs e)
+            private void DeleteButton_Click(object sender, EventArgs e)
         {
             // check if a definition is selected in the list view
             if (ListViewData.SelectedIndices.Count == 0)
@@ -179,39 +279,55 @@ namespace DataTable
                 return;
             }
 
-            int selectedIndex = ListViewData.SelectedIndices[0];
-            string selectedName = ListViewData.Items[selectedIndex].Text;
-            Information selectedInformation = Wiki.Find(d => d.Name == selectedName);
-            if (selectedInformation != null)
+            // Check if an item is selected
+            if (ListViewData.SelectedItems.Count > 0)
             {
-                Wiki.Remove(selectedInformation);
-                ListViewData.Items.RemoveAt(selectedIndex);
-                MessageBox.Show("Delete successful");
-            }
-            // enable the Add button after deleting a definition
-            AddButton.Enabled = true;
-        }
+                // Display a dialog box asking for confirmation
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this item?",
+                                                      "Delete Item",
+                                                      MessageBoxButtons.YesNo,
+                                                      MessageBoxIcon.Warning);
 
-
-        private void SaveButton_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Text Files (*.txt)|*.txt";
-            saveFileDialog.Title = "Save Data Table";
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                using (StreamWriter sw = new StreamWriter(saveFileDialog.FileName))
+                if (result == DialogResult.Yes)
                 {
-                    // Write the data from the Wiki list to the file
-                    foreach (Information info in Wiki)
-                    {
-                        sw.WriteLine($"{info.Name}|{info.Category}|{info.Structure}|{info.Definition}");
-                    }
-                    toolStripStatusLabel1.Text = "Data saved successfully!";
+                    // Remove the selected item from the Wiki list
+                    Information selectedInfo = Wiki[ListViewData.SelectedIndices[0]];
+                    Wiki.Remove(selectedInfo);
+                    AddButton.Enabled = true;
+                    // Clear the text boxes and display the updated list
+                    ClearTextBoxes();
+                    DisplayList();
                 }
             }
         }
+
+
+
+private void SaveButton_Click(object sender, EventArgs e)
+{
+    SaveFileDialog saveFileDialog = new SaveFileDialog();
+    saveFileDialog.Filter = "Binary Files|*.dat";
+    saveFileDialog.Title = "Save Data Table";
+
+    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+    {
+        using (FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create))
+        using (BinaryWriter binaryWriter = new BinaryWriter(fileStream))
+        {
+            // Write the data from the Wiki list to the file
+            foreach (Information info in Wiki)
+            {
+                binaryWriter.Write(info.Name);
+                binaryWriter.Write(info.Category);
+                binaryWriter.Write(info.Structure);
+                binaryWriter.Write(info.Definition);
+            }
+            toolStripStatusLabel1.Text = "Data saved successfully!";
+        }
+    }
+}
+
+
 
 
 
@@ -245,6 +361,12 @@ namespace DataTable
 
         private void BinarySearch_Click(object sender, EventArgs e)
         {
+
+            if (!IsListSorted(Wiki))
+            {
+                MessageBox.Show("Data is not sorted. Please sort the data and try again.");
+                return;
+            }
             // Get the search term from the search textbox
             string searchTerm = SearchTextBox.Text;
             // Perform the binary search
@@ -256,6 +378,7 @@ namespace DataTable
                 txtCategory.Text = Wiki[index].Category;
                 txtStructure.Text = Wiki[index].Structure;
                 txtDefinition.Text = Wiki[index].Definition;
+                HighlightStructure(Wiki[index].Structure == "Linear" ? 0 : 1);
                 MessageBox.Show("Name found");
                 // Highlight the name in the ListView
                 ListViewItem item = ListViewData.FindItemWithText(Wiki[index].Name);
@@ -308,6 +431,18 @@ namespace DataTable
             DisplayList();
             MessageBox.Show("Data sorted successfully.");
         }
+        
+        private void txtName_DoubleClick(object sender, EventArgs e)
+        {
+            // Clear the text boxes when the user double-clicks on the name field
+            ClearTextBoxes();
+        }
 
+        // private void TheDataTable_FormClosing(object sender, FormClosingEventArgs e)
+        // {
+        // Save the data before closing the form
+        //     SaveButton_Click(sender, null);
+        //}
     }
+
 }

@@ -52,8 +52,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.rbNonLinear = new System.Windows.Forms.RadioButton();
+            this.rbLinear = new System.Windows.Forms.RadioButton();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -159,6 +159,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(192, 29);
             this.txtName.TabIndex = 12;
+            this.txtName.DoubleClick += new System.EventHandler(this.txtName_DoubleClick);
             // 
             // txtCategory
             // 
@@ -242,7 +243,7 @@
             // 
             this.SearchTextBox.Location = new System.Drawing.Point(884, 775);
             this.SearchTextBox.Name = "SearchTextBox";
-            this.SearchTextBox.Size = new System.Drawing.Size(180, 29);
+            this.SearchTextBox.Size = new System.Drawing.Size(200, 29);
             this.SearchTextBox.TabIndex = 21;
             // 
             // label1
@@ -265,8 +266,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.rbNonLinear);
+            this.groupBox1.Controls.Add(this.rbLinear);
             this.groupBox1.Location = new System.Drawing.Point(894, 299);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(157, 100);
@@ -274,27 +275,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Structure";
             // 
-            // radioButton1
+            // rbNonLinear
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(10, 38);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(147, 29);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rbNonLinear.AutoSize = true;
+            this.rbNonLinear.Location = new System.Drawing.Point(10, 71);
+            this.rbNonLinear.Name = "rbNonLinear";
+            this.rbNonLinear.Size = new System.Drawing.Size(127, 29);
+            this.rbNonLinear.TabIndex = 1;
+            this.rbNonLinear.TabStop = true;
+            this.rbNonLinear.Text = "NonLinear";
+            this.rbNonLinear.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // rbLinear
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(10, 71);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(147, 29);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "radioButton2";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.rbLinear.AutoSize = true;
+            this.rbLinear.Location = new System.Drawing.Point(10, 38);
+            this.rbLinear.Name = "rbLinear";
+            this.rbLinear.Size = new System.Drawing.Size(91, 29);
+            this.rbLinear.TabIndex = 0;
+            this.rbLinear.TabStop = true;
+            this.rbLinear.Text = "Linear";
+            this.rbLinear.UseVisualStyleBackColor = true;
             // 
             // TheDataTable
             // 
@@ -359,8 +360,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton rbNonLinear;
+        private System.Windows.Forms.RadioButton rbLinear;
     }
 }
 
