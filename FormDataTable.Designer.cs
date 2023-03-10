@@ -33,7 +33,6 @@
             this.Category = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.AddButton = new System.Windows.Forms.Button();
             this.EditButton = new System.Windows.Forms.Button();
-            this.BubbleSort = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.BinarySearch = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
@@ -99,16 +98,6 @@
             this.EditButton.Text = "Edit";
             this.EditButton.UseVisualStyleBackColor = true;
             this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
-            // 
-            // BubbleSort
-            // 
-            this.BubbleSort.Location = new System.Drawing.Point(972, 23);
-            this.BubbleSort.Name = "BubbleSort";
-            this.BubbleSort.Size = new System.Drawing.Size(122, 42);
-            this.BubbleSort.TabIndex = 7;
-            this.BubbleSort.Text = "BubbleSort";
-            this.BubbleSort.UseVisualStyleBackColor = true;
-            this.BubbleSort.Click += new System.EventHandler(this.BubbleSort_Click);
             // 
             // DeleteButton
             // 
@@ -232,13 +221,6 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Array ",
-            "List ",
-            "Tree ",
-            "Graphs ",
-            "Abstract ",
-            "Hash "});
             this.comboBox1.Location = new System.Drawing.Point(682, 257);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 32);
@@ -296,7 +278,6 @@
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.BinarySearch);
             this.Controls.Add(this.DeleteButton);
-            this.Controls.Add(this.BubbleSort);
             this.Controls.Add(this.EditButton);
             this.Controls.Add(this.AddButton);
             this.Controls.Add(this.ListViewData);
@@ -318,7 +299,6 @@
         private System.Windows.Forms.ColumnHeader Category;
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.Button EditButton;
-        private System.Windows.Forms.Button BubbleSort;
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.Button BinarySearch;
         private System.Windows.Forms.Button SaveButton;

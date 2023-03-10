@@ -24,22 +24,25 @@ namespace DataTable
         //list for data structure 
         List<Information> Wiki = new List<Information>();
 
-        private void ClearTextBoxes()
-        {
-            // clear the content in all text boxes
-            txtName.Clear();
-         
+     private void ClearTextBoxes()
+         {
+    // clear the content in all text boxes
+             txtName.Clear();
             txtDefinition.Clear();
             comboBox1.SelectedIndex = -1;
+            comboBox1.Text = ""; // add this line to reset the ComboBox's text
             rbLinear.Checked = false;
             rbNonLinear.Checked = false;
             txtName.Focus();
         }
+
+
         // Custom ValidName method to check for duplicate names
         private bool ValidName(string name)
         {
             return Wiki.Exists(info => info.Name == name);
         }
+
 
         private bool IsDataTableFull()
         {
@@ -73,16 +76,6 @@ namespace DataTable
         }
 
 
-
-        private void Swap(ref string a, ref string b)
-        {
-            string temp = a;
-            a = b;
-            b = temp;
-        }
-
-
-
         private void DisplayList()
         {
             ListViewData.Items.Clear();
@@ -113,16 +106,16 @@ namespace DataTable
             if (string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtDefinition.Text) ||
             (rbLinear.Checked == false && rbNonLinear.Checked == false) || string.IsNullOrEmpty(comboBox1.Text))
             {
-                toolStripStatusLabel1.Text = "Error: Please fill all fields.";
+                MessageBox.Show("Error: Please fill all fields.");
                 return;
             }
 
             if (ValidName(txtName.Text))
             {
-                toolStripStatusLabel1.Text = "Error: Name already exists.";
+                MessageBox.Show("Error: Name already exists.");
                 return;
             }
-            // Get the selected radio button
+           
             
 
             // Create a new Information object with the data from the text boxes
@@ -131,7 +124,6 @@ namespace DataTable
                 Name = txtName.Text,
                 Category = comboBox1.Text,
                 Structure = structure,
-      
                 Definition = txtDefinition.Text
             };
 
@@ -144,9 +136,6 @@ namespace DataTable
             DisplayList();
         }
        
-
-
-        
 
 
 
@@ -188,18 +177,17 @@ namespace DataTable
         private void PopulateCategoryComboBox()
         {
             string categoriesFile = "categories.txt";
+            string[] categories = { "Array", "List", "Tree", "Graphs", "Abstract", "Hash" };
+
             if (File.Exists(categoriesFile))
             {
-                comboBox1.Items.Clear();
-                string[] categories = File.ReadAllLines(categoriesFile);
-                foreach (string category in categories)
-                {
-                    comboBox1.Items.Add(category);
-                }
+                categories = File.ReadAllLines(categoriesFile);
             }
-            else
+
+            comboBox1.Items.Clear();
+            foreach (string category in categories)
             {
-                MessageBox.Show("Categories file not found.");
+                comboBox1.Items.Add(category);
             }
         }
 
@@ -237,6 +225,7 @@ namespace DataTable
             ListViewData.Items[selectedIndex].SubItems[1].Text = info.Category;
 
             MessageBox.Show("Edit successful");
+            BubbleSort();
         }
 
 
@@ -300,6 +289,7 @@ namespace DataTable
                     // Clear the text boxes and display the updated list
                     ClearTextBoxes();
                     DisplayList();
+                    BubbleSort();
                 }
             }
         }
@@ -364,7 +354,7 @@ private void SaveButton_Click(object sender, EventArgs e)
 
         private void BinarySearch_Click(object sender, EventArgs e)
         {
-
+            BubbleSort();
             string structure = GetSelectedRadioButtonValue();
             if (!IsListSorted(Wiki))
             {
@@ -407,15 +397,9 @@ private void SaveButton_Click(object sender, EventArgs e)
 
 
 
-        private void BubbleSort_Click(object sender, EventArgs e)
+        private void BubbleSort()
         {
-            // Check if the data is already sorted
-            if (IsListSorted(Wiki))
-            {
-                MessageBox.Show("Data is already sorted.");
-                return;
-            }
-
+            
             int n = Wiki.Count;
             for (int i = 0; i < n - 1; i++)
             {
@@ -433,7 +417,7 @@ private void SaveButton_Click(object sender, EventArgs e)
 
             // Update the ListView and display a success message
             DisplayList();
-            MessageBox.Show("Data sorted successfully.");
+            
         }
         
         private void txtName_DoubleClick(object sender, EventArgs e)
