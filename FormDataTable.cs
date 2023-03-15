@@ -100,6 +100,7 @@ namespace DataTable
             {
                 AddButton.Enabled = false;
                 MessageBox.Show("List is full");
+                return;
             }
 
             // Check if all textbox are filled
@@ -134,6 +135,7 @@ namespace DataTable
             // Clear the text boxes and display the updated list
             ClearTextBoxes();
             DisplayList();
+            BubbleSort();
         }
        
 

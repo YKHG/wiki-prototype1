@@ -283,7 +283,7 @@
             this.Controls.Add(this.ListViewData);
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "TheDataTable";
-            this.Text = "My Data Table";
+            this.Text = "S";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
