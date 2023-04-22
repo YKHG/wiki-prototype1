@@ -242,22 +242,14 @@ namespace DataTable
                 int selectedIndex = ListViewData.SelectedIndices[0];
                 Information info = Wiki[selectedIndex];
 
-                // Highlight the appropriate radio button
-                if (info.Structure == "Linear")
-                {
-                    HighlightStructure(0);
-                }
-                else if (info.Structure == "Non-Linear")
-                {
-                    HighlightStructure(1);
-                }
+              
 
                 // Populate the text boxes with the Information object's data
                 txtName.Text = info.Name;
                 comboBox1.Text = info.Category;
                  structure = info.Structure;
                 txtDefinition.Text = info.Definition;
-                  comboBox1.Text = info.Category;
+                  
                 HighlightStructure(info.Structure == "Linear" ? 0 : 1);
             }
         }
