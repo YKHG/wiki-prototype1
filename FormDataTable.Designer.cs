@@ -284,6 +284,7 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "TheDataTable";
             this.Text = "S";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TheDataTable_FormClosing_1);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);

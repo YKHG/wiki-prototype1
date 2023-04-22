@@ -428,11 +428,13 @@ private void SaveButton_Click(object sender, EventArgs e)
             ClearTextBoxes();
         }
 
-        // private void TheDataTable_FormClosing(object sender, FormClosingEventArgs e)
-        // {
-        // Save the data before closing the form
-        //     SaveButton_Click(sender, null);
-        //}
+        private void TheDataTable_FormClosing_1(object sender, FormClosingEventArgs e)
+        {
+        //Save the data before closing the form
+            SaveButton_Click(sender, null);
+       }
+
+        
     }
 
 }
