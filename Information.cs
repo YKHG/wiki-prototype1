@@ -1,54 +1,123 @@
-﻿using System;
+using System;
+
 using System.Collections.Generic;
+
 using System.Linq;
+
 using System.Text;
+
 using System.Threading.Tasks;
 
+
+
 namespace DataTable
+
 {
+
     using System;
 
+
+
     namespace wiki
+
     {
+
         class Information : IComparable<Information>
+
         {
-            // Private fields for data structure
-            private string name;
-            private string category;
-            private string structure;
-            private string definition;
-
-            // Properties for the private fields
-            public string Name
+            // Private fields for data structure 
+            public string Name;
+            public string Category;
+            public string Structure;
+            public string Definition;
+            public Information() { }
+            // Properties for the private fields 
+            public string getName
             {
-                get { return name; }
-                set { name = value; }
+                get { return Name; }
+
             }
 
-            public string Category
+            public string getCategory
+
             {
-                get { return category; }
-                set { category = value; }
+
+                get { return Category; }
+
             }
 
-            public string Structure
+            public string getStructure
+
             {
-                get { return structure; }
-                set { structure = value; }
+
+                get { return Structure; }
+
             }
 
-            public string Definition
+
+
+            public string getDefinition
+
             {
-                get { return definition; }
-                set { definition = value; }
+
+                get { return Definition; }
+
             }
 
-            // IComparable implementation for sorting by Name
+
+
+            public void setName(string newName)
+
+            {
+
+                Name = newName;
+
+
+
+            }
+
+            public void setCategory(string newCategory)
+
+            {
+
+                Category = newCategory;
+
+            }
+
+            public void setStructure(string newStructure)
+
+            {
+
+                Structure = newStructure;
+
+            }
+
+
+
+            public void setDefinition(string newDefinition)
+
+            {
+
+                Definition = newDefinition;
+
+            }
+
+
+
+            // IComparable implementation for sorting by Name 
+
             public int CompareTo(Information other)
+
             {
-                return this.Name.CompareTo(other.Name);
+
+                return this.getName.CompareTo(other.getName);
+
             }
+
         }
+
     }
+
+
 
 }
